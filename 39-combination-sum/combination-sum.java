@@ -9,6 +9,7 @@ return l;
         if(t<0)return;
         if(t==0){
 l.add(new ArrayList<>(ll));
+return;
         }
         for(int i=idx;i<a.length;i++){
 ll.add(a[i]);
