@@ -10,43 +10,34 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
-        if (head == null || head.next == null) return;
-
-        // Step 1: Find the middle
-        ListNode slow = head;
-        ListNode fast = head;
-        ListNode prev = slow;
-        while (fast != null && fast.next != null) {
-            prev = slow;
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        prev.next = null; // Split the list
-
-        // Step 2: Reverse the second half
-        ListNode c = rev(slow);
-
-        // Step 3: Merge both halves
-        ListNode temp = head;
-        while (temp != null && c != null) {
-            ListNode x = temp.next;
-            ListNode y = c.next;
-            temp.next = c;
-              if (x == null) break;
-            c.next = x;
-            temp = x;
-            c = y;
-        }
+        ListNode mid=midd(head);
+        ListNode x=rev(mid.next);
+        mid.next=null;
+        head=fun(head,x);
     }
-
-    private ListNode rev(ListNode head) {
-        ListNode prev = null, curr = head;
-        while (curr != null) {
-            ListNode temp = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = temp;
+    public static ListNode fun(ListNode h1,ListNode h2){
+        if(h1==null&&h2==null)return null;
+        if(h1==null)return h2;
+        if(h2==null)return h1;
+        h1.next=fun(h2,h1.next);
+        return h1;
+    }
+    public static ListNode midd(ListNode head){
+        ListNode s=head,f=head;
+        while(f!=null&&f.next!=null){
+            s=s.next;
+            f=f.next.next;
         }
-        return prev;
+        return s;
+    }
+    public static ListNode rev(ListNode head){
+        ListNode p=null,c=head,n=null;
+        while(c!=null){
+            n=c.next;
+            c.next=p;
+            p=c;
+            c=n;
+        }
+        return p;
     }
 }
