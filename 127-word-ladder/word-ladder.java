@@ -6,7 +6,7 @@ class Solution {
         if(!hs.contains(endWord))return 0;
         q.add(beginWord);
         vis.add(beginWord);
-        int c=1;
+        int c=01;
         while(!q.isEmpty()){
             int n=q.size();
             for(int i=0;i<n;i++){
