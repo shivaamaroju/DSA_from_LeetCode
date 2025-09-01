@@ -13,7 +13,7 @@ class Solution {
         a[1]=a[1]+1;
         pq.add(a);
         }
-        double sum=0.0;
+        double sum=0;
         while(pq.size()>0){
             int a[]=pq.remove();
             sum=sum+((double)a[0]/a[1]);
