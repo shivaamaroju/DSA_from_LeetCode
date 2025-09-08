@@ -1,47 +1,54 @@
 class Trie {
-TNode root=new TNode();
+ Node root;
     public Trie() {
+        root=new Node();
+    }
+    
+    public void insert(String s) {
+        Node temp=root;
+for(int i=0;i<s.length();i++){
+    int x=(int)s.charAt(i)-'a';
+    if(temp.a[x]==null){
+        temp.a[x]=new Node();
+    }
+    temp=temp.a[x];
+
+}
+temp.ew=true;
         
     }
     
-    public void insert(String word) {
-     TNode temp=root;
-        for(char ch:word.toCharArray()){
-            int indx=(int)ch-'a';
-            if(temp.a[indx]==null){
-            temp.a[indx]=new TNode();   
-            }
-           
-                temp=temp.a[indx];
-           
-        }
-        temp.ew=true;
+    public boolean search(String s) {
+           Node temp=root;
+for(int i=0;i<s.length();i++){
+    int x=(int)s.charAt(i)-'a';
+    if(temp.a[x]==null){
+       return false;
     }
-    
-    public boolean search(String word) {
-TNode temp=root;
-for(char ch:word.toCharArray()){
-int idx=(int)ch-'a';
-if(temp.a[idx]==null)return false;
-temp=temp.a[idx];
-}
-if(temp.ew)return true;
+    temp=temp.a[x];
 
-        return false;
+}
+return temp.ew;
     }
     
-    public boolean startsWith(String prefix) {
-        TNode temp=root;
-        for(char ch:prefix.toCharArray()){
-            int idx=(int)ch-'a';
-            if(temp.a[idx]==null)return false;
-            temp=temp.a[idx];
-        }
-        return true;
+    public boolean startsWith(String s) {
+      Node temp=root;
+for(int i=0;i<s.length();i++){
+    int x=(int)s.charAt(i)-'a';
+    if(temp.a[x]==null){
+       return false;
+    }
+    temp=temp.a[x];
+
+}
+return true;
     }
 }
 
-class TNode{
-    boolean ew=false;
-    TNode a[]=new TNode[26];
+
+
+class Node{
+    Node a[]=new Node[26];
+    boolean ew =false;
+
 }
