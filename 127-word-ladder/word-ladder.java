@@ -1,33 +1,38 @@
 class Solution {
-    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        HashSet<String> hs=new HashSet<>(wordList);
-        Queue<String> q=new LinkedList<>();
-        HashSet<String> vis=new HashSet<>();
-        if(!hs.contains(endWord))return 0;
-        q.add(beginWord);
-        vis.add(beginWord);
-        int c=01;
-        while(!q.isEmpty()){
-            int n=q.size();
-            for(int i=0;i<n;i++){
-                String st=q.remove();
-                char ch[]=st.toCharArray();
-                for(int j=0;j<ch.length;j++){
-                    char or=ch[j];
-                    for(char l='a';l<='z';l++){
-                        if(or==l)continue;
-                        ch[j]=l;
-                        String ans=new String(ch);
-                        if(ans.equals(endWord)) return c+1;
-                        if(hs.contains(ans)&&!vis.contains(ans)){
-                            q.add(ans);
-                            vis.add(ans);
+    public int ladderLength(String b, String e, List<String> wordList) {
+        HashSet<String> hs = new HashSet<>(wordList);
+        if (!hs.contains(e)) return 0; // end word must be in wordList
+
+        HashSet<String> vis = new HashSet<>();
+        Queue<String> q = new LinkedList<>();
+        int c = 1; // start from 1 because beginWord is counted
+        q.add(b);
+        vis.add(b);
+
+        while (!q.isEmpty()) {
+            int n = q.size();
+            for (int i = 0; i < n; i++) {
+                String x = q.remove();
+                char[] ch = x.toCharArray();
+
+                for (int j = 0; j < ch.length; j++) {
+                    char or = ch[j];
+                    for (char k = 'a'; k <= 'z'; k++) {
+                        if (k == or) continue; // skip same character
+                        ch[j] = k;
+                        String kotha = new String(ch);
+
+                        if (kotha.equals(e)) return c + 1;
+
+                        if (!vis.contains(kotha) && hs.contains(kotha)) {
+                            q.add(kotha);
+                            vis.add(kotha);
                         }
-                    ch[j]=or;
                     }
+                    ch[j] = or;
                 }
             }
-                c++;
+            c++;
         }
         return 0;
     }
