@@ -15,29 +15,30 @@ class Solution {
         mid.next=null;
         head=fun(head,x);
     }
-    public static ListNode fun(ListNode h1,ListNode h2){
-        if(h1==null&&h2==null)return null;
-        if(h1==null)return h2;
-        if(h2==null)return h1;
-        h1.next=fun(h2,h1.next);
-        return h1;
-    }
-    public static ListNode midd(ListNode head){
+    public ListNode midd(ListNode head){
+        // if(head==null)retrun null;
         ListNode s=head,f=head;
         while(f!=null&&f.next!=null){
-            s=s.next;
-            f=f.next.next;
+        s=s.next;
+        f=f.next.next;
         }
         return s;
     }
-    public static ListNode rev(ListNode head){
-        ListNode p=null,c=head,n=null;
-        while(c!=null){
-            n=c.next;
-            c.next=p;
-            p=c;
-            c=n;
+    public ListNode rev(ListNode head){
+        ListNode prev=null,cur=head,next=null;
+        while(cur!=null){
+            next=cur.next;
+            cur.next=prev;
+            prev=cur;
+            cur=next;
         }
-        return p;
+        return prev;
+    }
+    public ListNode fun(ListNode head1,ListNode head2){
+        if(head1==null&&head2==null)return null;
+        if(head1==null)return head2;
+        if(head2==null)return head1;
+        head1.next =fun(head2,head1.next);
+        return head1;
     }
 }
