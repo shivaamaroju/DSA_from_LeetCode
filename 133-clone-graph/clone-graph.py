@@ -8,7 +8,10 @@ class Node(object):
 import copy
 class Solution(object):
     def cloneGraph(self, node):
-        nodee=copy.deepcopy(node)
-        return nodee
-        
+        """
+        :type node: Node
+        :rtype: Node
+        """
+        x=copy.deepcopy(node);
+        return x;
         
