@@ -1,9 +1,9 @@
 class LRUCache {
-LinkedHashMap<Integer,Integer>mp;
+LinkedHashMap<Integer,Integer> mp;
 int c;
     public LRUCache(int capacity) {
-      c=capacity;  
-      mp=new LinkedHashMap<>(c,0.75f,true);
+      c=capacity;
+      mp=new LinkedHashMap<>(c,0.75f,true);  
     }
     
     public int get(int key) {
@@ -15,8 +15,8 @@ int c;
         mp.put(key,value);
         else{
             if(mp.size()==c){
-int l=mp.keySet().iterator().next();
-mp.remove(l);
+                int r=mp.keySet().iterator().next();
+                mp.remove(r);
             }
             mp.put(key,value);
         }
