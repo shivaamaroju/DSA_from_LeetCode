@@ -1,34 +1,20 @@
 class Solution {
     public int trap(int[] height) {
         int n=height.length;
-      int pge[]=new int[n];
-      int nge[]=new int[n];
-      Stack<Integer> st=new Stack<>();
-      for(int i=n-1;i>=0;i--){
-        while(!st.isEmpty()&&height[i]>=height[st.peek()]){
-            st.pop();
+        int left[]=new int[n];
+        int right[]=new int[n];
+        left[0]=height[0];
+        for(int i=1;i<n;i++){
+            left[i]=Math.max(height[i],left[i-1]);
         }
-        if(st.isEmpty())pge[i]=height[i];
-        else pge[i]=Math.max(height[i],pge[st.peek()]);
-        st.push(i);
-      }  
-
-
-
-      st=new Stack<>();
-     for(int i=0;i<n;i++){
-        while(!st.isEmpty()&&height[i]>=height[st.peek()]){
-            st.pop();
+        right[n-1]=height[n-1];
+        for(int i=n-2;i>=0;i--){
+            right[i]=Math.max(height[i],right[i+1]);
         }
-        if(st.isEmpty())nge[i]=height[i];
-        else nge[i]=Math.max(height[i],nge[st.peek()]);
-        st.push(i);
-      }  
-      int water=0;
-      for(int i=0;i<n;i++){
-        int max=Math.min(nge[i],pge[i])-height[i];
-        if(max>0)water+=max;
-      }
-      return water;
+        int sum=0;
+        for(int i=0;i<n;i++){
+            sum+=Math.max(0,Math.min(left[i],right[i])-height[i]);
+        }
+        return sum;
     }
 }
