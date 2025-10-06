@@ -1,33 +1,29 @@
 class Solution {
-    public int largestRectangleArea(int[] h) {
-        int pge[]=new int[h.length];
-        int nge[]=new int[h.length];
+    public int largestRectangleArea(int[] heights) {
+        int n=heights.length;
+        int nse[]=new int[n];
+        int pse[]=new int[n];
+        Arrays.fill(nse,n);
+        Arrays.fill(pse,-1);
         Stack<Integer> st=new Stack<>();
-        Arrays.fill(nge,h.length);
-        Arrays.fill(pge,-1);
-
-        for(int i=0;i<h.length;i++){
-            while(!st.isEmpty()&&h[st.peek()]>h[i]){
-                nge[st.pop()]=i;
-            }
-            st.push(i);
+    for(int i=0;i<n;i++){
+        while(st.size()>0&&heights[st.peek()]>heights[i]){
+nse[st.pop()]=i;
         }
-        st=new Stack<>();
- for(int i=h.length-1;i>=0;i--){
-            while(!st.isEmpty()&&h[st.peek()]>h[i]){
-                pge[st.pop()]=i;
-            }
-            st.push(i);
+        st.push(i);
+    }
+     st=new Stack<>();
+    for(int i=n-1;i>=0;i--){
+        while(st.size()>0&&heights[st.peek()]>heights[i]){
+pse[st.pop()]=i;
         }
-        int max=0;
-        for(int i=0;i<h.length;i++){
-    int width=(nge[i]-pge[i]-1);
-    max=Math.max(max,h[i]*width);
-        }
-        return max;
-
-
-
-
+        st.push(i);
+    }
+    int max=0;
+   for(int i=0;i<n;i++){
+    int w=nse[i]-pse[i]-1;
+    max=Math.max(max,w*heights[i]);
+   }
+    return max;
     }
 }
