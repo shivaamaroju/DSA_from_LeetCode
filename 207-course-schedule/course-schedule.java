@@ -1,31 +1,24 @@
 class Solution {
     public boolean canFinish(int n, int[][] p) {
-        int[] indegree = new int[n];
-        HashMap<Integer, List<Integer>> graph = new HashMap<>();
-
-        // build graph correctly: b -> a
-        for (int i = 0; i < p.length; i++) {
-            graph.computeIfAbsent(p[i][1], k -> new ArrayList<>()).add(p[i][0]);
-            indegree[p[i][0]]++;
+        HashMap<Integer,List<Integer>> mp=new HashMap<>();
+        int in[]=new int[n];
+        for(var s:p){
+            mp.computeIfAbsent(s[1],k->new ArrayList<>()).add(s[0]);
+        in[s[0]]++;
         }
-
-        Queue<Integer> q = new LinkedList<>();
-        for (int i = 0; i < n; i++) {
-            if (indegree[i] == 0) q.add(i);
-        }
-
-        int count = 0;
-        while (!q.isEmpty()) {
-            int course = q.remove();
-            count++;
-            if (graph.containsKey(course)) {
-                for (int next : graph.get(course)) {
-                    indegree[next]--;
-                    if (indegree[next] == 0) q.add(next);
-                }
+        Queue<Integer> q=new LinkedList<>();
+        int c=0;
+        for(int i=0;i<n;i++)if(in[i]==0)q.add(i);
+        while(q.size()>0){
+            int x=q.remove();
+            c++;
+        if(mp.containsKey(x)){
+            for(int s:mp.get(x)){
+                in[s]--;
+                if(in[s]==0)q.add(s);
             }
         }
+        }
 
-        return count == n;
-    }
+    return c==n;}
 }
