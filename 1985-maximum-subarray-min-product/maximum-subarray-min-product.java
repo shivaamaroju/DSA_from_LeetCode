@@ -1,38 +1,33 @@
 class Solution {
     public int maxSumMinProduct(int[] nums) {
-        int mod=(int)1e9+7;
-        int n=nums.length;
-        long ps[]=new long[n+1];
-        for(int i=0;i<n;i++){
-ps[i+1]=ps[i]+nums[i];
-        }
-        int pge[]=new int[n];
-        int nge[]=new int[n];
-        Stack<Integer> st=new Stack<>();
-        Arrays.fill(nge,n);
-        Arrays.fill(pge,-1);
-        for(int i=0;i<n;i++){
-while(st.size()>0&&nums[st.peek()]>nums[i]){
-    nge[st.pop()]=i;
-}
-st.push(i);
-        }
-        st.clear();
-        for(int i=n-1;i>=0;i--){
-while(st.size()>0&&nums[st.peek()]>nums[i]){
-    pge[st.pop()]=i;
-}
-st.push(i);
-        }
-        st.clear();
-        long max=0;
-        for(int i=0;i<n;i++){
-            int l=pge[i]+1;
-            int r=nge[i]-1;
-            long sum=ps[r+1]-ps[l];
-            max=Math.max(max,sum*nums[i]);
-        }
-        return (int)(max%mod);
-    
+      int mod=(int)1e9+7;
+      int n=nums.length;
+      long p[]=new long[n+1];
+      int nge[]=new int[n];
+      int pse[]=new int[n];
+      Arrays.fill(nge,n);
+      Arrays.fill(pse,-1);
+      for(int i=0;i<n;i++){
+p[i+1]=nums[i]+p[i];
+      }
+      Stack<Integer> st=new Stack<>();
+    for(int i=0;i<n;i++){
+        while(st.size()>0&&nums[st.peek()]>nums[i])nge[st.pop()]=i;
+        st.push(i);
+    }
+     st=new Stack<>();
+    for(int i=n-1;i>=0;i--){
+        while(st.size()>0&&nums[st.peek()]>nums[i])pse[st.pop()]=i;
+        st.push(i);
+    }
+    long max=0;
+    for(int i=0;i<n;i++){
+        int r=nge[i]-1;
+        int l=pse[i]+1;
+        long sum=p[r+1]-p[l];
+        max=Math.max(sum*nums[i],max);
+    }
+    return (int)(max%mod);
+
     }
 }
