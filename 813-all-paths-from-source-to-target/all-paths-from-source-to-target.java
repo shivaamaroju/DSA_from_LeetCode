@@ -1,27 +1,26 @@
-class Solution {
-HashSet<List<Integer>> ans=new HashSet<>();
-    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-boolean vis[]=new boolean[graph.length];
-if(graph[0].length==0)return new ArrayList<>();
-List<Integer> l=new ArrayList<>();
-for(int i=0;i<graph[0].length;i++){
-helper(0,graph.length-1,graph,l);
-}
-for(var s: ans){
-    s.add(0,0);
-}
-return new ArrayList<>(ans);
+import java.util.*;
 
+class Solution {
+    List<List<Integer>> ans = new ArrayList<>();
+
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<Integer> path = new ArrayList<>();
+        path.add(0); // start from node 0
+        helper(0, graph.length - 1, graph, path);
+        return ans;
     }
-    public void helper(int src,int t,int a[][],List<Integer> l){
-        if(src==t){
-            ans.add(new ArrayList<>(l));
+
+    public void helper(int src, int target, int[][] graph, List<Integer> path) {
+        if (src == target) {
+            ans.add(new ArrayList<>(path)); // store a copy of the current path
             return;
         }
-        for(int i=0;i<a[src].length;i++){
-            l.add(a[src][i]);
-            helper(a[src][i],t,a,l);
-            l.remove(l.size()-1);
+
+        for (int next : graph[src]) {
+            path.add(next);
+            helper(next, target, graph, path);
+            path.remove(path.size() - 1); // backtrack
         }
     }
 }
+
