@@ -1,26 +1,30 @@
 class Solution {
     public List<String> printVertically(String s) {
-        List<String>res = new ArrayList<>();
-        int max = 0;
-        for(var i : s.split(" "))
-            max = Math.max(max,i.length());
-        String ans = "";
-        for(var i : s.split(" "))
-                ans += i+"*".repeat(max-i.length());
-        for(int i = 0 ; i < max ; i++){
-            String str = "";
-            int j = i;
-            while(j  < ans.length()){
-                char ch = ans.charAt(j);
-                if(ch == '*')
-                    str += " ";
-                else str += ch;
-                j += max;
-            }
-            res.add(str.stripTrailing());
-        }
+    int k=0;
+String a[]=s.split(" ");
 
-        
-        return res;
+int max=0;
+List<String> l=new ArrayList<>();
+for(int i=0;i<a.length;i++){
+max=Math.max(max,a[i].length());
+}
+
+int j=0;
+while(j<max){
+    String ans="";
+    for(int i=0;i<a.length;i++){
+String  d=a[i];
+if(d.length()>j){
+ans+=a[i].charAt(j);
+}
+else {
+ans+=" ";
+}
+
+    }
+    l.add(ans.stripTrailing());
+    j++;
+}
+return l;
     }
 }
