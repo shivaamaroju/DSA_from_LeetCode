@@ -7,7 +7,6 @@ class Solution {
         String ans = "";
         for(var i : s.split(" "))
                 ans += i+"*".repeat(max-i.length());
-        // ans = ans.trim();
         for(int i = 0 ; i < max ; i++){
             String str = "";
             int j = i;
