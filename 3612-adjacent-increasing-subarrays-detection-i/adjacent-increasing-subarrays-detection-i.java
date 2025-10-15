@@ -1,23 +1,50 @@
+import java.util.*;
+
 class Solution {
-   public boolean hasIncreasingSubarrays(List<Integer> nums, int k) {
-    for (int i = 0; i + 2 * k <= nums.size(); i++) {
-        int c1 = 1; // first increasing subarray length counter
-        int c2 = 1; // second increasing subarray length counter
-        
-        // Check first subarray of length k
-        for (int j = i; j < i + k - 1; j++) {
-            if (nums.get(j) < nums.get(j + 1)) c1++;
-            else break; // must be strictly increasing
+
+    public int maxIncreasingSubarrays(List<Integer> nums) {
+        int n = nums.size();
+        int low = 1, high = n / 2;
+        int ans = 0;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2; 
+            if (hasIncreasingSubarrays(nums, mid)) {
+                ans = mid;      
+                low = mid + 1;
+            } else {
+                high = mid - 1; 
+            }
         }
 
-        // Check second subarray of length k
-        for (int j = i + k; j < i + 2 * k - 1; j++) {
-            if (nums.get(j) < nums.get(j + 1)) c2++;
-            else break;
-        }
-
-        if (c1 == k && c2 == k) return true;
+        return ans;
     }
-    return false;
-}
+
+    public boolean hasIncreasingSubarrays(List<Integer> nums, int k) {
+        int n = nums.size();
+        for (int i = 0; i + 2 * k <= n; i++) {
+            boolean ok1 = true, ok2 = true;
+
+            // check first subarray
+            for (int j = i; j < i + k - 1; j++) {
+                if (nums.get(j) >= nums.get(j + 1)) {
+                    ok1 = false;
+                    break;
+                }
+            }
+
+            // check second subarray
+            for (int j = i + k; j < i + 2 * k - 1; j++) {
+                if (nums.get(j) >= nums.get(j + 1)) {
+                    ok2 = false;
+                    break;
+                }
+            }
+
+            if (ok1 && ok2) return true;
+        }
+        return false;
+    }
+
+    
 }
