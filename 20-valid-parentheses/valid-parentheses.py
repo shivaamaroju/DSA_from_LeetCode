@@ -5,14 +5,13 @@ class Solution(object):
         :rtype: bool
         """
         st=[]
-        for i in range(len(s)):
-            if s[i]=='(' or s[i]=='{' or s[i]=='[':
-                st.append(s[i])
+        for ch in s:
+            if ch in '[{(':
+                st.append(ch)
             else:
                 if len(st)==0:
                     return False
                 p=st.pop()
-                if (s[i]==']'and p!='[') or (s[i]=='}' and p!='{') or (s[i]==')'and p!='('):
+                if (ch==')'and p!='(') or (ch=='}'and p!='{') or (ch==']'and p!='['):
                     return False
-        return len(st)==0 
-        
+        return len(st)==0
