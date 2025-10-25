@@ -12,6 +12,6 @@ class Solution(object):
                 if len(st)==0:
                     return False
                 p=st.pop()
-                if (ch==')'and p!='(') or (ch=='}'and p!='{') or (ch==']'and p!='['):
+                if (ch=='}'and p!='{')or(ch==']'and p!='[')or(ch==')'and p!='('):
                     return False
         return len(st)==0
