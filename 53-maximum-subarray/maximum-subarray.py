@@ -5,9 +5,8 @@ class Solution(object):
         :rtype: int
         """
         m=c=n[0]
-        for x in n[1:]:
-            c=max(x,c+x)
+        for i in n[1:]:
+            c=max(i,i+c)
             m=max(m,c)
         return m
-
         
