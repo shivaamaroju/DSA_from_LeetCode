@@ -9,7 +9,7 @@ class Solution(object):
             if ch in '[{(':
                 st.append(ch)
             else:
-                if len(st)==0:
+                if not st:
                     return False
                 p=st.pop()
                 if (ch=='}'and p!='{')or(ch==']'and p!='[')or(ch==')'and p!='('):
