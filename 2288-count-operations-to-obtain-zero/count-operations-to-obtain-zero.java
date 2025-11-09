@@ -1,15 +1,26 @@
+import java.util.*;
+
 class Solution {
-    int min=Integer.MAX_VALUE;
-    public int countOperations(int num1, int num2) {
-        helper(num1,num2,0);
-        return min;
+    HashMap<String, Integer> mp = new HashMap<>();
+
+    public int countOperations(int n, int m) {
+        return helper(n, m);
     }
-    public void helper(int n,int m,int c){
-        if(n==0||m==0){
-            min=Math.min(min,c);
-            return;
-        }
-        if(n<=m)helper(n,m-n,c+1);
-        else helper(n-m,m,c+1);
+
+    private int helper(int n, int m) {
+        // Base cases
+        if (n == 0 || m == 0) return 0;
+
+        String key = n + "," + m;
+        if (mp.containsKey(key)) return mp.get(key);
+
+        int ans;
+        if (n >= m)
+            ans = 1 + helper(n - m, m);
+        else
+            ans = 1 + helper(n, m - n);
+
+        mp.put(key, ans);
+        return ans;
     }
 }
