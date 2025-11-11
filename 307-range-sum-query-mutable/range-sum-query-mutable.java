@@ -1,56 +1,61 @@
 class NumArray {
+SEG obj;
 int n;
-sum obj;
     public NumArray(int[] nums) {
         n=nums.length;
-        obj=new sum(n);
-       obj.build(nums,0,n-1,0);
+        obj=new SEG(nums.length);
+        obj.build(0,0,nums.length-1,nums);
     }
     
     public void update(int index, int val) {
-        obj.update(obj.seg,0,n-1,index,val,0);
+        obj.update(0,0,n-1,index,val);
+        // for(int s:obj.seg)
+        // System.out.print(s+" ");
+        // System.out.println(" ");
     }
     
     public int sumRange(int left, int right) {
-        return obj.get(obj.seg,0,n-1,left,right,0);
+        return obj.sum(0,0,n-1,left,right);
     }
 }
-class sum{
+class SEG{
     int seg[];
-    sum(int n){
+    SEG(int n){
         seg=new int[4*n];
     }
-    public void build(int nums[],int l, int h,int idx){
+    public void build(int idx,int l, int h,int a[]){
         if(l==h){
-            seg[idx]=nums[l];
-        return;}
-        int mid=(l+h)/2;
-        build(nums,l,mid,2*idx+1);
-        build(nums,mid+1,h,2*idx+2);
-        seg[idx]=seg[2*idx+1]+seg[2*idx+2];
-    }
-    public void update(int nums[],int l, int h,int pos,int val,int idx){
-        if(l==h){
-            seg[idx]=val;
-            return;
+            seg[idx]=a[l];
+            return ;
         }
         int mid=(l+h)/2;
-      if(pos<=mid)  update(nums,l,mid,pos,val,2*idx+1);
-      else update(nums,mid+1,h,pos,val,2*idx+2);
-      seg[idx]=seg[2*idx+1]+seg[2*idx+2];
+        build(2*idx+1,l,mid,a);
+        build(2*idx+2,mid+1,h,a);
+        seg[idx]=seg[2*idx+1]+seg[2*idx+2];
     }
-    public int get(int nums[],int l,int r,int left,int right,int idx){
-        if(left>r||right<l)return 0;
-        if(l>=left&&r<=right)return seg[idx];
-        int mid=(l+r)/2;
-        int x=get(nums,l,mid,left,right,2*idx+1);
-        int y=get(nums,mid+1,r,left,right,2*idx+2);
-        return x+y;
+    public void update(int idx,int l,int h,int i,int val){
+if(l==h){
+    seg[idx]=val;
+    return;
+}
+int mid=(l+h)/2;
+if(i<=mid)
+update(2*idx+1,l,mid,i,val);
+else
+update(2*idx+2,mid+1,h,i,val);
+  seg[idx]=seg[2*idx+1]+seg[2*idx+2];
+
+    }
+    public int sum(int idx,int l,int h,int left,int right){
+        if(right<l||h<left)return 0;
+        if (left <= l && h <= right) return seg[idx];
+
+        else{
+        int mid=(l+h)/2;
+        int ll=sum(2*idx+1,l,mid,left,right);
+        int rr=sum(2*idx+2,mid+1,h,left,right);
+      
+        return ll+rr;}
+
     }
 }
-/**
- * Your NumArray object will be instantiated and called as such:
- * NumArray obj = new NumArray(nums);
- * obj.update(index,val);
- * int param_2 = obj.sumRange(left,right);
- */
