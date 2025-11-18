@@ -1,22 +1,23 @@
 class Solution {
     public int findMaximumXOR(int[] nums) {
         Trie obj=new Trie();
-        for(var s:nums)obj.insert(s);
+        for(int i=0;i<nums.length;i++){
+            obj.build(nums[i]);
+        }
         int max=0;
-        for(var s:nums)max=Math.max(max,obj.max(s));
+        for(int i=0;i<nums.length;i++){
+            max=Math.max(max,obj.find(nums[i]));
+        }
         return max;
-
     }
 }
 class Node{
     Node a[]=new Node[2];
+    boolean ew=true;
 }
 class Trie{
-    Node root;
-    Trie(){
-        root=new Node();
-    }
-    public void insert(int n){
+    Node root=new Node();
+    public void build(int n){
         Node temp=root;
         for(int i=31;i>=0;i--){
             int x=(n>>i)&1;
@@ -25,22 +26,23 @@ class Trie{
             }
             temp=temp.a[x];
         }
+        temp.ew=true;
     }
-    public int max(int n){
+    public int find(int n){
         Node temp=root;
-        int res=0;
+        int xr=0;
         for(int i=31;i>=0;i--){
             int x=(n>>i)&1;
             int op=1-x;
             if(temp.a[op]!=null){
-                res|=(1<<i);
-                temp=temp.a[op];
+xr|=(1<<i);
+temp=temp.a[op];
             }
             else if(temp.a[x]!=null){
-                temp=temp.a[x];
+               temp= temp.a[x];
             }
-            else return res;
+            else return xr;
         }
-        return res;
+        return xr;
     }
 }
