@@ -37,8 +37,8 @@ class Solution {
 
             int rem = len - i - 1;
 
-            if (rem == 0) sum += countSmaller;
-            else sum += countSmaller * (a[available] / a[available - rem]);
+         
+          sum += countSmaller * (a[available] / a[available - rem]);
 
             if (used.contains(curr)) return sum;
             used.add(curr);
