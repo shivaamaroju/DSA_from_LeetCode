@@ -6,7 +6,6 @@ class Solution {
     for(int i=0;i<sb.length();i++){
         int x=Integer.parseInt(sb.substring(0,i+1));
         int y=Integer.parseInt(sb.substring(sb.length()-i-1));
-        System.out.println(x+" "+y);
         if(!prime(x)||!prime(y))return false;
 
     }
